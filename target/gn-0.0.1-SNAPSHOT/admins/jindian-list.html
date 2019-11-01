@@ -1,0 +1,300 @@
+<html class="x-admin-sm">
+  <head>
+    <meta charset="UTF-8">
+    <title>景点列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a>首页</a>
+        <a>演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">刷新</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+         <div class="layui-form layui-col-md12  layui-form-pane">
+           <div class="layui-form-item" id="x-city">
+            <label class="layui-form-label">城市</label>
+            <div class="layui-input-inline">
+              <select id="yiji" lay-filter="province">
+                <option value="">请选择省</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select id="erji" lay-filter="city">
+                <option value="">请选择市</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select id="sanji" lay-filter="area">
+                <option value="">请选择县/区</option>
+              </select>
+            </div>
+            <button style="width: 50px;height: 33px" id="sel_btn">查询</button>
+          </div>
+        </div>
+      </div>
+      <xblock>
+        <span class="x-right" style="line-height:40px" id="totil1"></span>
+      </xblock>
+      <table class="layui-table x-admin">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>地区</th>
+            <th>简介</th>
+            <th>历史</th>
+            <th>文化</th>
+            <th>特产</th>
+            <th>图片</th>
+            <th>修改</th>
+            <th>删除</th>
+            <th>设置</th>
+          </tr>
+        </thead>
+        <tbody id="td">
+          
+        </tbody>
+      </table>
+      <div class="page">
+        
+      </div>
+
+    </div>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="./js/xcity.js"></script>
+    <script>
+    
+	    $(function(){
+	  	  get_user_info(1);
+	    });
+	    
+	    function get_user_info(pn){
+	  	  $.ajax({
+	  		  url:'http://localhost:8080/gn/admin/SelJDServlet',
+	  		  type:'post',
+	  		  data:'pn='+pn,
+	  		  success:function(data){
+	  			  console.log(data);
+	  			  show_user_info(data.extend.list);
+	  		  }
+	  	  });
+	    }
+	    
+	      //信息展示 
+	      function show_user_info(list){
+	    	  //清空之前的数据
+	    	  $('#td').empty();
+	    	  //数据信息展示 
+	    	  $.each(list.list,function(i,item){
+	    		  var tr = $('<tr></tr>');
+	    		  var td_id = $('<td></td>').append(item.id);
+	        	  var td_name = $('<td></td>').append(item.name);
+	        	  var td_address = $('<td></td>').append(item.yiji+item.erji+item.sanji);
+	        	  var td_jianjie = $('<td></td>').append(item.jianjie);
+	        	  var td_wenhua = $('<td></td>').append(item.wenhua);
+	        	  var td_lishi = $('<td></td>').append(item.lishi);
+	        	  var td_techang = $('<td></td>').append(item.techang);
+	        	  var tupian = item.jianjietu + "," +item.lishitu + "," + item.wenhuatu + "," + item.techangtu;
+	        	  var td_img = $('<td></td>').append($("<a title='图片信息'  onclick=" + "x_admin_show('景点信息','tupian_list.html?tupian='+'"+tupian+"',800,500)" + " " + "href='javascript:;' style='display:inline-block;padding:2px 8px;background:#EEE685;color:#fff;font-size:12px;border-radius:3px;'>查看</a>"));
+	        	  var span1 = $("<a title='景点信息'  onclick=" + "x_admin_show('用户信息','jingdianxiugai.html?id='+'"+item.id+"',800,500)" + " " + "href='javascript:;' style='display:inline-block;padding:2px 8px;background:blue;color:#fff;font-size:12px;border-radius:3px;'>修改信息</a>");
+		    	  var span5 = $("<a title='删除景点'   style='display:inline-block;padding:2px 8px;background:red;color:#fff;font-size:12px;border-radius:3px;'>删除</a>");
+		    	  var span6 = $("<a title='设为热门'   style='display:inline-block;padding:2px 8px;background:red;color:#fff;font-size:12px;border-radius:3px;'>设为热门</a>");
+		    	  var span7 = $("<a title='取消热门'   style='display:inline-block;padding:2px 8px;background:red;color:#fff;font-size:12px;border-radius:3px;'>取消热门</a>");
+		    	  span5.click(function(){
+		    		  del_user(item.id);
+		    	  });
+		    	  span6.click(function(){
+		    		  sheweiremeng(item.id);
+		    	  });
+		    	  span7.click(function(){
+		    		  quxiaoremeng(item.id);
+		    	  });
+		    	  var spanTd1 = $("<td></td>");
+		    	  var spanTd2 = $("<td></td>");
+		    	  var spanTd3 = $("<td></td>");
+		    	  spanTd1.append(span1); 
+		    	  spanTd2.append(span5);
+		    	  if(item.isremeng==0){
+		    		  //设为热门
+		    		  spanTd3.append(span6);
+		    	  }else{
+		    		  //取消热门
+		    		  spanTd3.append(span7)
+		    	  }
+		    	  tr.append(td_id)
+		    	  .append(td_name)
+		    	  .append(td_address)
+		    	  .append(td_jianjie)
+		    	  .append(td_wenhua)
+		    	  .append(td_lishi)
+		    	  .append(td_techang)
+		    	  .append(td_img)
+		    	  .append(spanTd1)
+		    	  .append(spanTd2)
+		    	  .append(spanTd3);
+	        	  $('#td').append(tr);
+	    	  });
+	    	 
+	    	  $('#totil1').empty();
+	    	  $('#totil1').append('总用户：'+list.total+"位");
+	    	  //分页操作
+	    	  $('.page').empty();
+	    	  var div = $('<div></div>');
+	    	  //判断是否是首页
+	    	  var shouyea;
+	    	  var shangyiye;
+	    	  if(list.pageNum==1){
+	    		  shouyea = $('<a class="num">首页</a>');
+	        	  shangyiye = $('<a class="prev">&lt;&lt;</a>');
+	    	  }else{
+	    		  shouyea = $('<a class="num" href="">首页</a>');
+	        	  shangyiye = $('<a class="prev" href="">&lt;&lt;</a>');
+	    		  shouyea.click(function(){
+	    			  get_user_info(1);
+	        		  return false;
+	        	  });
+	    		  shangyiye.click(function(){
+	    			  get_user_info(list.pageNum-1);
+	    			  return false;
+	        	  });
+	    	  }
+	    	  div.append(shouyea).append(shangyiye);
+	    	  $.each(list.navigatepageNums,function(i,item){
+	    		  var a;
+	    		  if(item == list.pageNum){
+	    			  a = $('<span class="current"></span>').append(item);
+	    		  }else{
+	    			  a = $(' <a class="num" href=""></a>').append(item);
+	    			  a.click(function(){
+	    				  get_user_info(item);
+	    				  return false;
+	    			  });
+	    		  }
+	    		  div.append(a);
+	    	  });
+	    	  //判断是否还有 下一页 
+	    	  var xiayiye;
+	    	  var moye;
+	    	  if(list.hasNextPage){
+	    		  xiayiye = $(' <a class="next" href="">&gt;&gt;</a>');
+	        	  moye = $('<a class="num" href="">末页</a>');
+	    		  xiayiye.click(function(){
+	    			  get_user_info(list.pageNum+1);
+	    			  return false;
+	        	  });
+	        	  moye.click(function(){
+	        		  get_user_info(list.pages);
+	        		  return false;
+	        	  });
+	    	  }else{
+	    		  xiayiye = $(' <a class="next">&gt;&gt;</a>');
+	        	  moye = $('<a class="num">末页</a>');
+	    	  }
+	    	  div.append(xiayiye).append(moye); 
+	    	  $('.page').append(div);
+	      }
+    
+	      //删除景点
+	      function del_user(id){
+            if (confirm("以下选择的记录将被删除。") == true){
+		  	  $.ajax({
+		  		  url:'http://localhost:8080/gn/admin/DeljingdianServlet',
+		  		  type:'post',
+		  		  data:'id='+id,
+		  		  success:function(data){
+		  			  console.log(data);
+		  			  if(data.code==100){
+		  				showMessage('删除成功','success',1000)
+		  				location.reload();
+		  			  }else{
+		  				showMessage('删除失败','error',1000)
+		  			  }
+		  		  }
+		  	  });
+            }
+		 }
+	      
+	      $("#sel_btn").click(function(){
+	    	  var yiji = $("#yiji").val();
+	    	  var erji = $("#erji").val();
+	    	  var sanji = $("#sanji").val();
+	    	  sel_user_info(yiji,erji,sanji);
+	      });
+	      
+	      //查询景点
+	      function sel_user_info(yiji,erji,sanji){
+		  	  $.ajax({
+		  		  url:'http://localhost:8080/gn/admin/SelOneByTiaojianServlet',
+		  		  type:'post',
+		  		  data:'yiji='+yiji+"&erji="+erji+"&sanji="+sanji,
+		  		  success:function(data){
+		  			  console.log(data);
+		  			  show_user_info(data.extend.list)
+		  		  }
+		  	  });
+		    }
+	      
+	      
+	      function sheweiremeng(id){
+		  	  $.ajax({
+		  		  url:'http://localhost:8080/gn/admin/UpdRMServlert',
+		  		  type:'post',
+		  		  data:'id='+id,
+		  		  success:function(data){
+		  			  console.log(data);
+		  			  if(data.code==100){
+		  				showMessage('设置成功','success',1000)
+		  				location.reload();
+		  			  }else{
+		  				showMessage('设置失败','error',1000)
+		  			  }
+		  		  }
+		  	  });
+		    }
+	      
+	      
+	      function quxiaoremeng(id){
+		  	  $.ajax({
+		  		  url:'http://localhost:8080/gn/admin/UpdNoRMServlet',
+		  		  type:'post',
+		  		  data:'id='+id,
+		  		  success:function(data){
+		  			  console.log(data);
+		  			  if(data.code==100){
+		  				showMessage('取消成功','success',1000)
+		  				location.reload();
+		  			  }else{
+		  				showMessage('取消失败','error',1000)
+		  			  }
+		  		  }
+		  	  });
+		    }
+    </script>
+    <script>
+      layui.use(['form','code'], function(){
+        form = layui.form;
+
+        layui.code();
+
+        $('#x-city').xcity('广东','广州市','东山区');
+
+      });
+    </script>
+  </body>
+</html>

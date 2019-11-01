@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 扫描注解 -->
+	<context:component-scan
+		base-package="com.gn.controller"></context:component-scan>
+
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".html"></property>
+	</bean>
+    
+    <!-- 任务调度器 -->
+	 <task:scheduler id="scheduler" pool-size="10" /> 
+	<!-- 开启@scheduler注解的调用 -->
+	<task:annotation-driven executor="scheduler" proxy-target-class="true"/>
+	<!-- spring上传文件时，file文件上传multipart的解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="102400000"></property>
+		<property name="defaultEncoding" value="utf-8"></property>
+	</bean>
+    
+    <!-- 注解驱动 -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <!-- 静态资源 -->
+	<!-- 静态资源 -->
+	<mvc:resources location="/admins/" mapping="/admins/**"></mvc:resources>
+	<mvc:resources location="/qianduan/" mapping="/qianduan/**"></mvc:resources>
+	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+	<mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
+	<mvc:resources location="/imgs/" mapping="/imgs/**"></mvc:resources>
+	<mvc:resources location="/files/" mapping="/files/**"></mvc:resources>
+   <!-- <mvc:resources location="/admins/" mapping="/admins/**"></mvc:resources>
+    <mvc:resources location="/qianduan/" mapping="/qianduan/**"></mvc:resources>
+    <mvc:resources location="/qianduan/" mapping="/qianduan/template/**"></mvc:resources>
+    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+    <mvc:resources location="/qianduan/images/" mapping="/images/**"></mvc:resources>
+    <mvc:resources location="/admins/images/" mapping="/images/**"></mvc:resources>
+    <mvc:resources location="/imgs/" mapping="/imgs/**"></mvc:resources>
+    <mvc:resources location="/files/" mapping="/files/**"></mvc:resources>-->
+</beans>

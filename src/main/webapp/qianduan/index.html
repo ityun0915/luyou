@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>景点推荐网</title>
+
+<meta content="景点推荐网" name="keywords" />
+
+<meta content="景点推荐网" name="description" />
+
+<link rel="stylesheet" href="./css/xadmin.css">
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+
+<link href="css/base.css" rel="stylesheet" type="text/css">
+
+<link href="css/pagename.css" rel="stylesheet" type="text/css">
+
+<link href="css/address.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.SuperSlide.2.1.js"></script>
+</head>
+
+
+
+<body>
+
+
+
+<!--header开始--> 
+
+<div class="header" style="height: 100px"> 
+	<div class="w1000"> 
+    	<p style="float:left;"><b>你好，欢迎光临景点推荐网！</b></p>
+    	<div class="layui-row" style="margin_left:200px">
+        <div class="layui-form layui-col-md12  layui-form-pane">
+           <div class="layui-form-item" id="x-city">
+            <label class="layui-form-label">选择城市</label>
+            <div class="layui-input-inline">
+              <select name="province" lay-filter="province" id="yiji">
+                <option value="">请选择省</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select name="city" lay-filter="city" id="erji">
+                <option value="">请选择市</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select name="area" lay-filter="area" id="sanji">
+                <option value="">请选择县/区</option>
+              </select>
+            </div>
+            <a title='景点信息' onclick="chaxun()" style='display:inline-block;padding:2px 8px;background:#D3D3D3;color:#fff;font-size:12px;border-radius:3px;'>查询</a>
+          </div>
+        </div>
+
+      </div>
+	</div>
+</div>
+
+
+
+
+
+<div class="w1000">
+
+	<div class="header_bottom">
+
+			<a href="index.html"><img src="images/logo.jpg" width="294" height="49" alt="" title="绿城之都-南宁"></a>
+
+       		<ul>
+
+            	<li><a href="index.html">网站首页</a></li>            
+
+                <li><a href="template/new.html">动态</a></li>      
+
+                <li><a href="template/leave.html">留言</a></li>   
+				
+				 <li><a href="template/about.html">团队介绍</a></li>      
+
+                <li><a href="template/connection.html">联系我们</a></li>
+
+     		</ul>  
+
+    </div>       
+
+</div>
+
+
+<!--header结束--> 
+
+
+<div class="container"> 		
+
+		<!--banner开始-->
+
+		<div class="banner"> 
+
+            <div class="bd">
+
+                <ul>
+
+                    <li style="background:url(images/1.jpg) no-repeat center top;"></li>
+
+                    <li style="background:url(images/banner_2.jpg) no-repeat center top;"></li>
+
+                  
+
+                </ul>
+
+            </div>
+
+            <div class="hd">
+
+                <ul>
+
+                    <li></li>
+
+                    <li></li>
+
+                </ul>
+
+            </div>
+
+            <a class="prev" href="javascript:void(0)"></a>
+
+            <a class="next" href="javascript:void(0)"></a>
+
+        </div>
+		 <!--调用JS模块图片滚动--> 
+        <script type="text/javascript">jQuery(".banner").slide({ titCell:".hd ul", mainCell:".bd ul", effect:"fold",delayTime:1000,interTime:5000,autoPlay:true, autoPage:true, trigger:"click" });</script>
+
+		<!--banner结束-->
+
+		<!--content开始-->
+
+		<div class="content"> 
+
+			<p class="p_tit1">热门景点</p>	
+
+			<ul class="ul_jishu clearfix" id="zhanshi">
+
+            	
+            </ul>	
+
+
+            
+
+            <div class="zjfc">
+
+            	<p class="p_tit1">秀丽风景</p>
+
+                <div class="picScroll-left">
+
+                    <div class="hd">
+
+                        <a class="next"><</a>
+
+                        <a class="prev">></a>
+
+                    </div>
+
+                    <div class="bd">
+
+                        <ul class="picList">
+
+     
+
+                     
+
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301619396038.jpg" width="231" height="151" /></div>
+
+                               
+
+                            </li>
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301618110413.jpg" width="231" height="151" /></div>
+
+                                
+
+                            </li>
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301611286194.jpg" width="231" height="151" /></div>
+
+                               
+
+                            </li>
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301613498694.jpg" width="231" height="151" /></div>
+
+                               
+
+                            </li>
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301614494319.jpg" width="231" height="151" /></div>
+
+                              
+
+                            </li>
+
+                                             
+
+                   <li>
+
+                                <div class="pic"><img src="images/201410301615449632.jpg" width="231" height="151" /></div>
+
+                            
+
+                            </li>
+
+                                             
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+        		<!--为秀丽南宁模块图片向左滚到--> 
+
+                <script type="text/javascript">
+
+                jQuery(".picScroll-left").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"left",autoPlay:true,vis:4,trigger:"click"});
+
+                </script>
+			
+
+
+                	
+
+            </div>
+
+		</div>
+
+		<!--content 结束--> 
+
+</div>
+
+<!--footer开始-->
+
+<div class="footer" style="height: 48px"> 
+
+	<p><a href="index.html">首页</a> | <a href="template/connection.html">联系我们</a></p>
+
+<p>Copyright &copy; 2015－2016 All Rights Reserved 版权所有 XXXXXXXXXXXXXXXXXX</p>
+  <p>地址：XXXXXXXXXXXXXXXXXX </p>
+  
+</div>
+<!--footer 结束--> 
+    <script type="text/javascript" src="./js/xcity.js"></script>
+    <script>
+      layui.use(['form','code'], function(){
+        form = layui.form;
+
+        layui.code();
+
+        $('#x-city').xcity('广东','广州市','东山区');
+
+      });
+    </script>
+    <script type="text/javascript">
+         function chaxun(){
+        	 var yiji = $("#yiji").val();
+        	 var erji = $("#erji").val();
+        	 var sanji = $("#sanji").val();
+        	 window.location.href="jingdian.html?yiji="+yiji+"&erji="+erji+"&sanji="+sanji;  
+         }
+    </script>
+    <script src="js/main.js"></script>
+    <script>
+    
+     $(function(){
+    	 var userId = localStorage.getItem("userId");
+    	 get_user_info();
+     });
+    
+     function get_user_info(){
+         var url = window.location;
+         var yiji = getUrlParam(url,"yiji");
+         var erji = getUrlParam(url,"erji");
+         var sanji = getUrlParam(url,"sanji");
+         $.ajax({
+             url:"../admin/SelRDjindianServlet",
+             type:"post",
+             success:function(data){
+            	 console.log(data);
+             	if(data.code==100){
+             		show(data.extend.list);
+             	}else{
+             	    				  
+             	}
+             }
+         });
+     } 
+      //获取url地址上参数
+        function getUrlParam(url,name){
+             var pattern = new RegExp("[?&]" + name +"\=([^&]+)","g");
+             var matcher = pattern.exec(url);
+             var items = null;
+             if(matcher != null){
+                  try{
+                      items = decodeURIComponent(decodeURIComponent(matcher[1]));   
+                  }catch(e){
+                      try{
+                          items = decodeURIComponent(matcher[1]);
+                  }catch(e){
+                          items = matcher[1];
+                       }
+                  }
+              }
+              return items;
+        }
+      
+      //展示
+      function show(list){
+    	  
+    	  $.each(list,function(i,item){
+    		  var Li0 = $('<li class="fl"></li>');
+    		  var Li1 = $('<li class="fl ml20"></li>');
+    		  var str = "template/introduce.html?id="+item.id;
+        	  var a = $('<a href="'+str+'"></a>');
+        	  var dizhi = item.jianjietu;
+        	  // alert("简介图地址："+dizhi+"===景点id："+item.id);
+        	  var img = $('<img src="'+dizhi+'" width="291" height="126" alt="" title="">');
+        	  a.append(img);
+        	  var p = $('<p></p>');
+        	  var a1 = $('<a href="'+str+'"></a>').append(item.name+"简介");
+    	      p.append(a1).append(item.jianjie);
+    	      /* if((i+1)%2==0){ */
+    	    	  Li0.append(a).append(p);
+    	    	  $("#zhanshi").append(Li0);
+    	      /* }else{ */
+    	    	  /* Li0.append(a).append(p);
+    	    	  $("#zhanshi").append(Li0);
+    	      } */
+    	      if(i==2){
+    	    	  return;
+    	      }
+    	  });
+      }
+    </script>
+</body>
+</html>
+

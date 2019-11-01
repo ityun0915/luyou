@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>修改景点信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a>首页</a>
+        <a>演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">刷新</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+
+        <form class="layui-form layui-col-md12  layui-form-pane" 
+        action="http://localhost:8080/gn/admin/UpdjingdianServlet" method="post">
+
+           <div class="layui-form-item" id="x-city">
+            <label class="layui-form-label">地区</label>
+            <div class="layui-input-inline">
+              <select name="yiji" lay-filter="province" id="yiji">
+                <option value="" >请选择省</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select name="erji" lay-filter="city" id="erji">
+                <option value="">请选择市</option>
+              </select>
+            </div>
+            <div class="layui-input-inline">
+              <select name="sanji" lay-filter="area" id="sanji">
+                <option value="">请选择县/区</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="name" class="layui-form-label">
+                  <span class="x-red">*</span>景点名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="name" name="name" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+              
+          </div>
+          <div class="layui-form-item">
+              <label for="jianjie" class="layui-form-label">
+                  <span class="x-red">*</span>简介
+              </label>
+              <div class="layui-input-inline">
+                  <textarea type="text" name="jianjie" rows="20" cols="26" id="jianjie"></textarea>
+              </div>
+              
+          </div>
+          <div class="layui-form-item">
+              <label for="lishi" class="layui-form-label">
+                  <span class="x-red">*</span>历史
+              </label>
+              <div class="layui-input-inline">
+                  <textarea type="text" name="lishi" rows="20" cols="26" id="lishi"></textarea>
+              </div>
+              
+          </div>
+          <div class="layui-form-item">
+              <label for="wenhua" class="layui-form-label">
+                  <span class="x-red">*</span>文化
+              </label>
+              <div class="layui-input-inline">
+                  <textarea type="text" name="wenhua" rows="20" cols="26" id="wenhua"></textarea>
+              </div>
+              
+          </div>
+          <div class="layui-form-item">
+              <label for="techang" class="layui-form-label">
+                  <span class="x-red">*</span>特产
+              </label>
+              <div class="layui-input-inline">
+                  <textarea type="text" name="techang" rows="20" cols="26" id="techang"></textarea>
+              </div>  
+              <div class="layui-form-mid layui-word-aux">
+                  <input type="text" style="display:none" id="userId" name="id"/>
+              </div>
+          </div>
+          
+          <div class="layui-form-item">
+              <label for="x-city" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" type="submit">
+                  修改
+              </button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="./js/xcity.js"></script>
+    <script>
+      $(function(){
+     	  var url = window.location.href;
+    	  var id = getUrlParam(url,"id");
+    	  $.ajax({
+	  		  url:'http://localhost:8080/gn/admin/SelOneByIdServlet',
+	  		  type:'post',
+	  		  data:'id='+id,
+	  		  success:function(data){
+	  			console.log(data);
+	  			if(data.code==100){
+	  				var jingdian = data.extend.jingdian;
+             		sancanshu(jingdian.yiji,jingdian.erji,jingdian.sanji)
+             		$("#userId").val(jingdian.id);
+             		$("#name").val(jingdian.name);
+             		$("#jianjie").val(jingdian.jianjie);
+             		$("#wenhua").val(jingdian.wenhua);
+             		$("#lishi").val(jingdian.lishi);
+             		$("#techang").val(jingdian.techang);
+             	}else if(result.code==200){
+             	    				  
+             	}
+	  		  }
+	  	  });
+      });
+      
+      function sancanshu(yiji,erji,sanji){
+    	  layui.use(['form','code'], function(){
+    	        form = layui.form;
+
+    	        layui.code();
+
+    	        $('#x-city').xcity(yiji,erji,sanji);
+
+    	      });
+      }
+      //获取url地址上参数
+      function getUrlParam(url,name){
+             var pattern = new RegExp("[?&]" + name +"\=([^&]+)","g");
+             var matcher = pattern.exec(url);
+             var items = null;
+             if(matcher != null){
+                  try{
+                      items = decodeURIComponent(decodeURIComponent(matcher[1]));   
+                  }catch(e){
+                      try{
+                          items = decodeURIComponent(matcher[1]);
+                  }catch(e){
+                          items = matcher[1];
+                       }
+                  }
+              }
+              return items;
+        }
+      
+    </script>
+  </body>
+</html>
